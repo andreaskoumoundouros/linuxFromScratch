@@ -56,13 +56,9 @@ if ! md5sum -c md5sums; then
     exit 7
 fi
 
-# Set ownership of the files to root if running as root
-if [[ $EUID -ne 0 ]]; then
-    chown root:root * || { log_error "Failed to change ownership of files."; exit 8; }
-    log_info "File ownership set to root:root."
-else
-    log_warning "Skipped changing file ownership as script is not running as root."
-fi
+# Set ownership of the files to lfs
+chown lfs:lfs * || { log_error "Failed to change ownership of files."; exit 8; }
+log_info "File ownership set to lfs:lfs."
 
 log_info "Download and verification complete."
 exit 0
